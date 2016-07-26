@@ -1,3 +1,5 @@
+import numpy as np
+
 def method1():
     exp = 'exp1'
     with open('./%s/%s_all' % (exp, exp), 'r') as f:
@@ -24,4 +26,6 @@ def method1():
 
 
 if __name__ == '__main__':
-    method1()
+    # method1()
+    arr = np.loadtxt('exp1/exp1_all')
+    print arr[:, 0]
