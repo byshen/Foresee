@@ -1,6 +1,6 @@
 # Foresee
 
-First small project.
+First small project for cloud resources data.
 
 ## Update 2016.08.02
 All done. Prepare docs for this small project.
