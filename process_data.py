@@ -56,8 +56,9 @@ with open(fname13,'r') as file:
        - CPU Utilization for Spark Workers (avg) containers
        - Throughput
        - Memory utilization for Web Workers (avg) containers => worker 1
-       - Memory utilization for Spark Workers (avg) containers => spark worker 1
-       - VMs CPU and MEM utilization are ignored ...
+       - Memory utilization for Spark Workers (avg) containers => spark master
+       - VMs CPU and MEM utilization are swarms
         '''
         f_exp.write('\t'.join(
-            [items[20], items[12],items[13], items[22], items[18], items[16], items[21], items[74], items[30]]) + '\n')
+            [items[20], items[12],items[13], items[22], items[18], items[16], items[21], items[74], items[26], items[3], items[4], items[5], \
+             items[8], items[9], items[10]]) + '\n')
