@@ -11,15 +11,6 @@ import matplotlib.pyplot as plt
 import tensorflow.contrib.learn as skflow
 from sklearn import datasets, metrics
 
-# View more python learning tutorial on my Youtube and Youku channel!!!
-
-# Youtube video tutorial: https://www.youtube.com/channel/UCdyjiB5H8Pu7aDTNVXTTpcg
-# Youku video tutorial: http://i.youku.com/pythontutorial
-
-"""
-Please note, this code is only for python 3+. If you are using python 2+, please modify the code accordingly.
-"""
-
 
 def add_layer(inputs, in_size, out_size, activation_function=None):
     # add one more layer and return the output of this layer
@@ -39,11 +30,11 @@ x_data = np.linspace(-1,1,300)[:, np.newaxis]
 noise = np.random.normal(0, 0.05, x_data.shape)
 y_data = np.square(x_data) - 0.5 + noise
 '''
+
 x_data = all[:, 0]  # arrival rate
-y_data = all[:, 9]  # response time
+y_data = all[:, 3]  # response time
 x_data = np.reshape(x_data, (len(x_data), 1))
 y_data = np.reshape(y_data, (len(y_data), 1))
-
 
 # define placeholder for inputs to network
 xs = tf.placeholder(tf.float32, [None, 1])
@@ -71,7 +62,7 @@ plt.show()
 plt.waitforbuttonpress()
 
 
-for i in range(100):
+for i in range(1000):
     # training
     sess.run(train_step, feed_dict={xs: x_data, ys: y_data})
     if i % 10 == 0:
@@ -81,6 +72,6 @@ for i in range(100):
             pass
         # to see the step improvement
         print(sess.run(loss, feed_dict={xs: x_data, ys: y_data}))
-    prediction_value = sess.run(prediction, feed_dict={xs: x_data})
-    lines = ax.plot(x_data, prediction_value, 'r-', lw=5)
-    plt.pause(0.1)
+    	prediction_value = sess.run(prediction, feed_dict={xs: x_data})
+    	lines = ax.plot(x_data, prediction_value, 'r-', lw=5)
+    	plt.pause(0.1)

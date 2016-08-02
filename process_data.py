@@ -1,7 +1,7 @@
 import fileinput
 import numpy as np
 
-exp = 'exp1'
+exp = 'exp13'
 '''
 f_arrival = open('%s_arrival_rate' % exp, 'w')
 f_through_put = open('%s_through_put' % exp, 'w')
@@ -14,8 +14,12 @@ f_mem_web2 = open('%s_mem_web2' % exp, 'w')
 f_mem_mysql = open('%s_mem_mysql' % exp, 'w')
 f_mem_load = open('%s_mem_load' % exp, 'w')
 '''
-f_exp = open('%s_all' % exp, 'w')
-with open('./frank/exp01.dataop.docker.savi.raw-metrics.data','r') as file:
+
+f_exp = open('%s/%s_all' % (exp, exp) , 'w')
+fname = './frank/%s.dataop.docker.savi.raw-metrics.data' % exp
+fname13 = '/home/handsome/Foresee/frank/exp13.legis.docker.savi.raw-metrics.data'
+
+with open(fname13,'r') as file:
     lines = file.readlines()
 
     for index, line in enumerate(lines):
@@ -35,4 +39,25 @@ with open('./frank/exp01.dataop.docker.savi.raw-metrics.data','r') as file:
         f_mem_mysql.write(items[17] + '\n')
         f_mem_load.write(items[21] + '\n')
         '''
-        f_exp.write('\t'.join([items[11], items[12],items[13],items[9],items[7],items[8],items[25], items[29], items[17], items[21]]) + '\n')
+        # for exp 01
+        #f_exp.write('\t'.join([items[11], items[12],items[13],items[9],items[7],items[8],items[25], items[29], items[17], items[21]]) + '\n')
+        # for exp 03 - 07
+        # arrival rate, throughput, response time, cpu_web, cpu_sql, cpu_load, mem_web, mem_mysql, mem_load, #of containers.
+        '''
+        f_exp.write('\t'.join(
+            [items[10], items[11], items[12], items[8], items[6], items[7], items[16],
+             items[20], items[85]]) + '\n')
+        '''
+        # for exp 13
+        '''
+        - Given the "ArrivalRate", "# Web Containers" and "# Spark Containers", predict
+       - Response Time
+       - CPU Utilization for Web Workers (avg) containers
+       - CPU Utilization for Spark Workers (avg) containers
+       - Throughput
+       - Memory utilization for Web Workers (avg) containers => worker 1
+       - Memory utilization for Spark Workers (avg) containers => spark worker 1
+       - VMs CPU and MEM utilization are ignored ...
+        '''
+        f_exp.write('\t'.join(
+            [items[20], items[12],items[13], items[22], items[18], items[16], items[21], items[74], items[30]]) + '\n')

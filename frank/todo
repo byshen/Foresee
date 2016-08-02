@@ -3,7 +3,7 @@
        - Response Time
        - CPU Utilization for Web Workers (avg) containers
        - CPU Utilization for MySql container
-       - Throughput
+       - Throughput # no need
        - Memory utilization for Web Workers (avg)
        - Memory utilization for MySql
        - CPU Utilization for Load Balancer container
@@ -15,7 +15,7 @@ EXP3, EXP5, EXP6, EXP7:
        - CPU Utilization for Web Workers (avg) containers
        - CPU Utilization for MySql container
        - Throughput
-       - Memory utilization for Web Workers (avg)
+       - Memory utilization for Web Workers (avg) # no mem util
        - Memory utilization for MySql
        - CPU Utilization for Load Balancer container
        - Memory utilization for Load Balancer
