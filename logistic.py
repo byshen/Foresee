@@ -23,26 +23,21 @@ def add_layer(inputs, in_size, out_size, activation_function=None):
         outputs = activation_function(Wx_plus_b)
     return outputs
 
-# Make up some real data
-all = np.loadtxt('exp1/exp1_all')
-'''
-x_data = np.linspace(-1,1,300)[:, np.newaxis]
-noise = np.random.normal(0, 0.05, x_data.shape)
-y_data = np.square(x_data) - 0.5 + noise
-'''
+all = np.loadtxt('exp01/exp01_all')
+
 
 x_data = all[:, 0]  # arrival rate
-y_data = all[:, 3]  # response time
+y_data = all[:, 1:10]  # response time
 x_data = np.reshape(x_data, (len(x_data), 1))
-y_data = np.reshape(y_data, (len(y_data), 1))
+y_data = np.reshape(y_data, (len(y_data), 9))
 
 # define placeholder for inputs to network
 xs = tf.placeholder(tf.float32, [None, 1])
-ys = tf.placeholder(tf.float32, [None, 1])
+ys = tf.placeholder(tf.float32, [None, 9])
 # add hidden layer
 l1 = add_layer(xs, 1, 10, activation_function=tf.nn.relu)
 # add output layer
-prediction = add_layer(l1, 10, 1, activation_function=None)
+prediction = add_layer(l1, 10, 9, activation_function=None)
 
 # the error between prediction and real data
 loss = tf.reduce_mean(tf.reduce_sum(tf.square(ys - prediction), reduction_indices=[1]))
@@ -54,24 +49,11 @@ sess = tf.Session()
 sess.run(init)
 
 
-fig = plt.figure()
-ax = fig.add_subplot(1,1,1)
-ax.scatter(x_data, y_data)
-plt.ion()
-plt.show()
-plt.waitforbuttonpress()
-
 
 for i in range(1000):
     # training
     sess.run(train_step, feed_dict={xs: x_data, ys: y_data})
     if i % 10 == 0:
-        try:
-            ax.lines.remove(lines[0])
-        except Exception:
-            pass
         # to see the step improvement
         print(sess.run(loss, feed_dict={xs: x_data, ys: y_data}))
     	prediction_value = sess.run(prediction, feed_dict={xs: x_data})
-    	lines = ax.plot(x_data, prediction_value, 'r-', lw=5)
-    	plt.pause(0.1)

@@ -1,7 +1,8 @@
 import numpy as np
 
+exp = 'exp01'
+
 def method1():
-    exp = 'exp1'
     with open('./%s/%s_all' % (exp, exp), 'r') as f:
         lines = f.readlines()
         length = len(lines)
@@ -24,8 +25,12 @@ def method1():
     for i in range(test_size):
         f_test.write(lines[i + train_size])
 
+def mynorm(exp):
+    all = np.loadtxt('exp01/exp01_all')
+
+
 
 if __name__ == '__main__':
-    # method1()
-    arr = np.loadtxt('exp1/exp1_all')
-    print arr[:, 0]
+    method1()
+    #arr = np.loadtxt('exp1/exp1_all')
+    #print arr[:, 0]
