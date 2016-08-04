@@ -42,6 +42,7 @@ with open(fname13,'r') as file:
         # for exp 01
         #f_exp.write('\t'.join([items[11], items[12],items[13],items[9],items[7],items[8],items[25], items[29], items[17], items[21]]) + '\n')
         # for exp 03 - 07
+        # arrival rate and # containers
         # arrival rate, throughput, response time, cpu_web, cpu_sql, cpu_load, mem_web, mem_mysql, mem_load, #of containers.
         '''
         f_exp.write('\t'.join(

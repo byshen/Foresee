@@ -1,4 +1,4 @@
-Task 2016.08.04
+# Task 2016.08.04
 
 - Normalize to 1 - 100 instead of 0-1 and redo the experiments
 - Change data type from `tf.float32` to other types and see 
