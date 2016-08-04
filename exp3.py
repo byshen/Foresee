@@ -55,7 +55,7 @@ def cal_accuracy(arr1, arr2):
 
     for i in range(length):
         for j in range(kuan):
-            res[i] += abs( (arr1[j][i] - arr2[j][i])/arr1[j][i] )
+            res[i] += abs( (arr1[j][i] - arr2[j][i]) )
 
     res = res/kuan
 
@@ -135,4 +135,4 @@ def main(exp, M, N):
     np.savetxt("%s/%s_pre_test_%d.txt" % (exp, exp, N+1-M), res_predict)
 
 if __name__ == '__main__':
-    main('exp07', 2, 2)
+    main('exp13', 3, 12)
