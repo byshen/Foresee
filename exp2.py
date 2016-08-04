@@ -8,7 +8,7 @@ def get_batch(iter, all, M, N, batch_size, x_data=[], y_data=[]):
     x_data = all[:, 0:M]  # arrival rate
     y_data = all[:, M:N+1]  # response time
     x_data = np.reshape(x_data, (len(x_data), M))
-    y_data = np.reshape(y_data, (len(y_data), N))
+    y_data = np.reshape(y_data, (len(y_data), N+1-M))
 
     iter = iter % len(x_data)
 
@@ -18,14 +18,14 @@ def get_batch(iter, all, M, N, batch_size, x_data=[], y_data=[]):
         for i in range(batch_size + iter - len(x_data)):
             resx = np.r_[np.reshape(resx,(resx.shape[0], M)), \
                          np.reshape(x_data[i, :], (1,M))]
-            resy = np.r_[np.reshape(resy,(resy.shape[0], N)), \
-                         np.reshape(y_data[i, :], (1,N))]
+            resy = np.r_[np.reshape(resy,(resy.shape[0], N+1-M)), \
+                         np.reshape(y_data[i, :], (1,N+1-M))]
     else:
         resx = x_data[iter:iter+batch_size, :]
         resy = y_data[iter:iter+batch_size, :]
 
     resx = np.reshape(resx, (batch_size, M))
-    resy = np.reshape(resy, (batch_size, N))
+    resy = np.reshape(resy, (batch_size, N+1-M))
     return resx, resy
 
 def add_layer(inputs, in_size, out_size, activation_function=None):
@@ -63,19 +63,18 @@ def cal_accuracy(arr1, arr2):
     return res
 
 
-
 def main(M, N):
     all = np.loadtxt('exp01/exp01_norm_train')
 
     x_data = all[:, 0:M]  # arrival rate
     y_data = all[:, M:N+1]  # response time
     x_data = np.reshape(x_data, (len(x_data), M))
-    y_data = np.reshape(y_data, (len(y_data), N))
+    y_data = np.reshape(y_data, (len(y_data), N+1-M))
 
     # define placeholder for inputs to network
     with tf.name_scope('inputs'):
         xs = tf.placeholder(tf.float32, [None, M], name = 'x_input')
-        ys = tf.placeholder(tf.float32, [None, N], name = 'y_label')
+        ys = tf.placeholder(tf.float32, [None, N+1-M], name = 'y_label')
     # add hidden layer
 
 
@@ -83,7 +82,7 @@ def main(M, N):
     # add output layer
     l2 = add_layer(l1,10,10,activation_function=tf.nn.relu)
 
-    prediction = add_layer(l2, 10, N, activation_function=None)
+    prediction = add_layer(l2, 10, N+1-M, activation_function=None)
 
     # the error between prediction and real data
     with tf.name_scope('loss'):
@@ -117,9 +116,9 @@ def main(M, N):
     x_test = test[:, 0:M]  # arrival rate
     y_test = test[:, M:N+1]  # response time
     x_test = np.reshape(x_test, (len(x_test), M))
-    y_test = np.reshape(y_test, (len(y_test), N))
+    y_test = np.reshape(y_test, (len(y_test), N+1-M))
 
-    res_predict = np.zeros((1, N))
+    res_predict = np.zeros((1, N+1-M))
 
     for i in range(0, len(x_test)):
         test_batch_x = np.reshape(x_test[i,:], (1,M))
@@ -138,4 +137,4 @@ def main(M, N):
     np.savetxt("exp01/exp01_pre_test.txt", res_predict)
 
 if __name__ == '__main__':
-    main(1, 5)
+    main(2, 2)
